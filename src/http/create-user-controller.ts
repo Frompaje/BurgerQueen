@@ -1,8 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
-import { PrismaUserRepository } from "../repository/prisma-user-repository";
-import { registerUseCase } from "../usecase/user-create-usecase";
-import { BcryptAdapter } from "../interface/password-hash";
+import { makeRegisterUseCase } from "./factory/make-register-use-cae";
 
 enum Role {
   ADMIN = "ADMIN",
@@ -22,14 +20,9 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     request.body
   );
   try {
-    const userPrismaRepository = new PrismaUserRepository();
-    const bcryptAdapter = new BcryptAdapter();
-    const registerUsecase = new registerUseCase(
-      userPrismaRepository,
-      bcryptAdapter
-    );
+    const register = makeRegisterUseCase();
 
-    const user = await registerUsecase.execute({
+    const user = await register.execute({
       name,
       email,
       password,
