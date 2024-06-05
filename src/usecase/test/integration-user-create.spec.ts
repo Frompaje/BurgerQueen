@@ -12,7 +12,7 @@ describe("Create user", () => {
     const { user } = await sut.execute(userMock);
 
     expect(user.id).toEqual(expect.any(String));
-    expect(user.name).toEqual("Jonathan D.");
+    expect(user.name).toEqual(userMock.name);
   });
 
   it("Shoulde be hashing password", async () => {
@@ -21,7 +21,7 @@ describe("Create user", () => {
 
 
     const { user } = await sut.execute(userMock);
-    const isPasswordCorrectHashed = await compare("123123", user.password);
+    const isPasswordCorrectHashed = await compare(userMock.password, user.password);
 
     expect(isPasswordCorrectHashed).toBe(true);
   });

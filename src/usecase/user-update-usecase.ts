@@ -2,19 +2,19 @@ import { User } from "@prisma/client";
 import { UserDoesntExist } from "../err/user-doesnt-exist";
 import { UserRepository } from "../interface/user-repository";
 
-interface DeleteUseCaseRequest {
+interface UpdatedUseCaseRequest {
   id: string;
 }
 
-interface DeleteUsaCaseResponse {
+interface UpdatedUsaCaseResponse {
   user: User;
 }
 
-export class DeleteUseCase {
+export class UpdateUseCase {
   constructor(private readonly userRepository: UserRepository) { }
   async execute({
     id,
-  }: DeleteUseCaseRequest): Promise<DeleteUsaCaseResponse> {
+  }: UpdatedUseCaseRequest): Promise<UpdatedUsaCaseResponse> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {

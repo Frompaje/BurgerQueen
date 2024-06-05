@@ -1,13 +1,13 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
-import { makeRegisterUseCase } from "./factory/make-register-use-cae";
+import { makeRegisterUseCase } from "./factory/make-register-usecase";
 
 enum Role {
   ADMIN = "ADMIN",
   USER = "USER",
 }
 
-export async function register(request: FastifyRequest, reply: FastifyReply) {
+export async function userRegister(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
     name: z.string().min(6).max(30),
     email: z.string().email(),

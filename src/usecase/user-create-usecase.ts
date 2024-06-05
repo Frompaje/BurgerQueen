@@ -19,7 +19,7 @@ export class RegisterUseCase {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly hasher: Hash
-  ) {}
+  ) { }
   async execute({
     name,
     email,

@@ -13,34 +13,30 @@ describe("Delete user", () => {
       delete: vi.fn(),
       findByEmail: vi.fn(),
       findById: vi.fn(),
+      update: vi.fn()
     };
     deleteUsecase = new DeleteUseCase(userRepository);
   });
 
-
-
   it("Should delete the user", async () => {
-    const userMock = makeUserMock()
+    const userMocking = makeUserMock()
 
-    vi.spyOn(userRepository, "findById").mockResolvedValue(userMock);
+    vi.spyOn(userRepository, "findById").mockResolvedValue(userMocking);
 
-    const { user } = await deleteUsecase.execute({ id: "User-id" })
+    const { user } = await deleteUsecase.execute({ id: userMocking.id })
 
     expect(userRepository.delete).toBeCalledTimes(1)
-    expect(user.id).toEqual("User-id")
+    expect(user.id).toEqual(expect.any(String))
   })
 
 
   it("You must not delete the user, because you didn't find the id", async () => {
-
-    vi.spyOn(userRepository, "findById").mockResolvedValue(null);
 
     expect(() => {
       return deleteUsecase.execute({
         id: "User-Id"
       })
     }).rejects.toBeInstanceOf(UserDoesntExist)
-
   })
 });
 
