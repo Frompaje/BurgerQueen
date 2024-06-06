@@ -1,6 +1,6 @@
-import { Prisma, User } from "@prisma/client";
-import { UserRepository } from "../interface/user-repository";
+import { Prisma } from "@prisma/client";
 import { prisma } from "../database/prisma";
+import { UserRepository } from "../interface/user-repository";
 
 export class PrismaUserRepository implements UserRepository {
   async create(data: Prisma.UserCreateInput) {
@@ -9,6 +9,7 @@ export class PrismaUserRepository implements UserRepository {
     });
     return user;
   }
+
   async findByEmail(email: string) {
     const user = await prisma.user.findUnique({
       where: {
@@ -39,8 +40,13 @@ export class PrismaUserRepository implements UserRepository {
     return user;
   }
 
-  async update(id: string, name: string, email: string, password: string, address: string) {
-
+  async update(
+    id: string,
+    name: string,
+    email: string,
+    password: string,
+    address: string
+  ) {
     const user = await prisma.user.update({
       where: {
         id,
@@ -48,10 +54,11 @@ export class PrismaUserRepository implements UserRepository {
       data: {
         name,
         email,
-        password, address
-      }
-    })
+        password,
+        address,
+      },
+    });
 
-    return user
+    return user;
   }
 }

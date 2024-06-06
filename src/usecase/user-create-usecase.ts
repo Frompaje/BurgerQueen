@@ -1,17 +1,17 @@
-import { Role, User } from "@prisma/client";
+import { $Enums, User } from "@prisma/client";
 import { UserAlreadyExistsError } from "../err/user-already-exists.error";
-import { UserRepository } from "../interface/user-repository";
 import { Hash } from "../interface/password-hash";
+import { UserRepository } from "../interface/user-repository";
 
-interface RegisterUseCaseRequest {
+export interface UseCaseRequest {
   name: string;
   email: string;
   password: string;
   address: string;
-  role: Role;
+  role: $Enums.Role;
 }
 
-interface RegisterUseCaseResponse {
+export interface UseCaseResponse {
   user: User;
 }
 
@@ -19,14 +19,14 @@ export class RegisterUseCase {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly hasher: Hash
-  ) { }
+  ) {}
   async execute({
     name,
     email,
     password,
     address,
     role,
-  }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+  }: UseCaseRequest): Promise<UseCaseResponse> {
     const password_hash = await this.hasher.hash(password);
     const userWithSameEmail = await this.userRepository.findByEmail(email);
 
@@ -41,6 +41,10 @@ export class RegisterUseCase {
       address,
       role,
     });
+
+    if (!user) {
+      throw new Error();
+    }
 
     return { user };
   }

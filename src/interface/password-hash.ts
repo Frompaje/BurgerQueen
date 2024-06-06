@@ -5,12 +5,13 @@ export interface Hash {
   compare(data: string, payload: string): Promise<boolean>;
 }
 
-export class hasher implements Hash {
+export class Hasher implements Hash {
   private SALT = 6;
-  hash(payload: string): Promise<string> {
-    return hash(payload, this.SALT);
+  async hash(payload: string): Promise<string> {
+    return await hash(payload, this.SALT);
   }
-  compare(data: string, payload: string): Promise<boolean> {
-    return compare(data, payload);
+
+  async compare(data: string, payload: string): Promise<boolean> {
+    return await compare(data, payload);
   }
 }

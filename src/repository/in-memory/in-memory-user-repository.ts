@@ -1,4 +1,4 @@
-import { $Enums, Prisma, Role, User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
 import { randomUUID } from "crypto";
 import { UserRepository } from "../../interface/user-repository";
 
@@ -63,24 +63,29 @@ export class InMemoryUserRepository implements UserRepository {
       return null;
     }
 
-    this.dataBase.filter((item) => item.id !== id);
+    this.dataBase = this.dataBase.filter((item) => item.id !== user.id);
 
     return user;
   }
 
-  async update(id: string, name: string, email: string, password: string, address: string) {
-    const user = this.dataBase.find((user) => user.id === id)
+  async update(
+    id: string,
+    name: string,
+    email: string,
+    password: string,
+    address: string
+  ) {
+    const user = this.dataBase.find((user) => user.id === id);
 
     if (!user) {
-      return null
+      return null;
     }
 
-    user.name = name
-    user.email = email
-    user.password = password
-    user.address = address
+    user.name = name;
+    user.email = email;
+    user.password = password;
+    user.address = address;
 
-    return user
-
+    return user;
   }
 }

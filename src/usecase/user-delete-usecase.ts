@@ -6,15 +6,13 @@ interface DeleteUseCaseRequest {
   id: string;
 }
 
-interface DeleteUsaCaseResponse {
+interface DeleteUseCaseResponse {
   user: User;
 }
 
 export class DeleteUseCase {
-  constructor(private readonly userRepository: UserRepository) { }
-  async execute({
-    id,
-  }: DeleteUseCaseRequest): Promise<DeleteUsaCaseResponse> {
+  constructor(private readonly userRepository: UserRepository) {}
+  async execute({ id }: DeleteUseCaseRequest): Promise<DeleteUseCaseResponse> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
@@ -26,5 +24,3 @@ export class DeleteUseCase {
     return { user };
   }
 }
-
-

@@ -4,18 +4,16 @@ import { FastifyReply, FastifyRequest } from "fastify";
 
 export async function userDelete(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
-    id: z.string()
+    id: z.string(),
   });
 
-  const { id } = registerBodySchema.parse(
-    request.body
-  );
+  const { id } = registerBodySchema.parse(request.body);
 
   try {
     const register = makeDeleteUseCase();
 
     const user = await register.execute({
-      id
+      id,
     });
 
     return reply.send(200).send({ user });
