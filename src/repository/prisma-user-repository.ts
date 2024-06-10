@@ -3,62 +3,54 @@ import { prisma } from "../database/prisma";
 import { UserRepository } from "../interface/user-repository";
 
 export class PrismaUserRepository implements UserRepository {
-  async create(data: Prisma.UserCreateInput) {
-    const user = await prisma.user.create({
+  create(data: Prisma.UserCreateInput) {
+    return prisma.user.create({
       data: data,
     });
-    return user;
   }
 
-  async findByEmail(email: string) {
-    const user = await prisma.user.findUnique({
+  findByEmail(email: string) {
+    return prisma.user.findUnique({
       where: {
         email,
       },
     });
-
-    return user;
   }
 
-  async findById(id: string) {
-    const user = await prisma.user.findUnique({
+  findById(id: string) {
+    return prisma.user.findUnique({
       where: {
         id,
       },
     });
-
-    return user;
   }
 
-  async delete(id: string) {
-    const user = await prisma.user.delete({
+  findUserByIdAndEmail(id?: string, email?: string) {
+    return prisma.user.findUnique({
+      where: {
+        id,
+        email,
+      },
+    });
+  }
+
+  delete(id: string) {
+    return prisma.user.delete({
       where: {
         id,
       },
     });
-
-    return user;
   }
 
-  async update(
-    id: string,
-    name: string,
-    email: string,
-    password: string,
-    address: string
-  ) {
-    const user = await prisma.user.update({
+  update(id: string, name: string, address: string) {
+    return prisma.user.update({
       where: {
-        id,
+        id: id,
       },
       data: {
         name,
-        email,
-        password,
         address,
       },
     });
-
-    return user;
   }
 }

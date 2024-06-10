@@ -1,13 +1,14 @@
+import { compare, hash } from "bcryptjs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { InvalidCredentialsError } from "../../err/invalid-credentials-error";
 import { UserAlreadyExistsError } from "../../err/user-already-exists.error";
-import { Hash } from "../../interface/password-hash";
 import { UserRepository } from "../../interface/user-repository";
+import { Hash } from "../../repository/adapter/password-hash";
 import { RegisterUseCase } from "../user-create-usecase";
 import {
   makeUserMock,
   makeUserMockPasswordNoHashed,
 } from "./factory/make-user";
-import { compare, hash } from "bcryptjs";
 
 describe("Create user", () => {
   let userRepository: UserRepository;
@@ -20,6 +21,7 @@ describe("Create user", () => {
       delete: vi.fn(),
       findByEmail: vi.fn(),
       findById: vi.fn(),
+      findUserByIdAndEmail: vi.fn(),
       update: vi.fn(),
     };
     hasher = {
@@ -31,22 +33,12 @@ describe("Create user", () => {
 
   it("Should create the user", async () => {
     const userMocking = makeUserMock();
-
     vi.spyOn(userRepository, "create").mockResolvedValue(userMocking);
+
     const { user } = await sut.execute(userMocking);
 
     expect(userRepository.create).toBeCalledTimes(1);
     expect(user.id).toEqual(expect.any(String));
-  });
-
-  it("Shouldn't create the user with same email", async () => {
-    const userMocking = makeUserMock();
-
-    vi.spyOn(userRepository, "findByEmail").mockResolvedValue(userMocking);
-
-    expect(() => {
-      return sut.execute(userMocking);
-    }).rejects.toBeInstanceOf(UserAlreadyExistsError);
   });
 
   it("Password should be hashed", async () => {
@@ -58,5 +50,16 @@ describe("Create user", () => {
     const isPasswordCorrectHashed = await compare(user.password, password_hash);
 
     expect(isPasswordCorrectHashed).toEqual(true);
+  });
+
+  describe("Error create user", () => {
+    it("Shouldn't create the user with same email", async () => {
+      const userMocking = makeUserMock();
+      vi.spyOn(userRepository, "findByEmail").mockResolvedValue(userMocking);
+
+      const resultErrSameEmail = sut.execute(userMocking);
+
+      expect(resultErrSameEmail).rejects.toBeInstanceOf(UserAlreadyExistsError);
+    });
   });
 });

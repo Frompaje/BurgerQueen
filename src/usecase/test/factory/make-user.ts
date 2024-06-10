@@ -23,7 +23,7 @@ export function makeUserMockPasswordNoHashed(override?: Partial<User>) {
     id: randomUUID(),
     name: faker.person.fullName(),
     email: faker.internet.email(),
-    password: faker.internet.password(),
+    password: override?.password ?? faker.internet.password(),
     address: faker.location.city(),
     createdAt: new Date(),
     role: $Enums.Role.USER,

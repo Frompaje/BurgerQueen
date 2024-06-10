@@ -7,13 +7,16 @@ enum Role {
   USER = "USER",
 }
 
-export async function userRegister(request: FastifyRequest, reply: FastifyReply) {
+export async function registerUserController(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
   const registerBodySchema = z.object({
     name: z.string().min(6).max(30),
     email: z.string().email(),
     password: z.string().min(6),
     address: z.string().min(6),
-    role: z.nativeEnum(Role),
+    role: z.nativeEnum(Role).default(Role.USER),
   });
 
   const { name, email, password, address, role } = registerBodySchema.parse(

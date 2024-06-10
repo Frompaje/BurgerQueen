@@ -1,9 +1,10 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { UserDoesntExist } from "../../err/user-doesnt-exist";
-import { Hasher } from "../../interface/password-hash";
 import { InMemoryUserRepository } from "../../repository/in-memory/in-memory-user-repository";
 import { RegisterUseCase } from "../user-create-usecase";
 import { DeleteUseCase } from "../user-delete-usecase";
+import { Hasher } from "../../repository/adapter/password-hash";
+import { makeUserMock } from "./factory/make-user";
 
 describe("Delete user", () => {
   let userRepository: InMemoryUserRepository;
@@ -39,9 +40,9 @@ describe("Delete user", () => {
 
   describe("Error delete user", () => {
     it("Should not delete the user, because the user.id was not found", async () => {
-      expect(() => {
-        return sut.execute({ id: "User-id-not-found" });
-      }).rejects.toBeInstanceOf(UserDoesntExist);
+      expect(sut.execute({ id: "User-Id-Not-Found" })).rejects.toBeInstanceOf(
+        UserDoesntExist
+      );
     });
   });
 });

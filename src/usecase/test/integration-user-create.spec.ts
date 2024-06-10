@@ -1,10 +1,10 @@
 import { compare } from "bcryptjs";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { UserAlreadyExistsError } from "../../err/user-already-exists.error";
-import { Hasher } from "../../interface/password-hash";
 import { InMemoryUserRepository } from "../../repository/in-memory/in-memory-user-repository";
 import { RegisterUseCase } from "../user-create-usecase";
 import { makeUserMock } from "./factory/make-user";
+import { Hasher } from "../../repository/adapter/password-hash";
 
 describe("Create user", () => {
   let userRepository: InMemoryUserRepository;

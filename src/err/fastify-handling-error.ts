@@ -1,8 +1,9 @@
 import { FastifyError, FastifyReply, FastifyRequest } from "fastify";
 import { ZodError } from "zod";
+import { InvalidCredentialsError } from "./invalid-credentials-error";
 import { UserAlreadyExistsError } from "./user-already-exists.error";
-import internal from "stream";
 import { UserDoesntExist } from "./user-doesnt-exist";
+import { request } from "http";
 
 export function errorHandling(
   error: FastifyError,
@@ -23,10 +24,15 @@ export function errorHandling(
 
   if (error instanceof UserDoesntExist) {
     return reply.status(400).send({
-      message: error.message
-    })
+      message: error.message,
+    });
   }
 
+  if (error instanceof InvalidCredentialsError) {
+    return reply.status(400).send({
+      message: error.message,
+    });
+  }
 
   return reply.status(500).send({ message: "internal server error" });
 }

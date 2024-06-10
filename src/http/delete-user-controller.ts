@@ -2,7 +2,10 @@ import z from "zod";
 import { makeDeleteUseCase } from "./factory/make-delete-usecase";
 import { FastifyReply, FastifyRequest } from "fastify";
 
-export async function userDelete(request: FastifyRequest, reply: FastifyReply) {
+export async function deleteUserController(
+  request: FastifyRequest,
+  reply: FastifyReply
+) {
   const registerBodySchema = z.object({
     id: z.string(),
   });
