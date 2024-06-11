@@ -33,7 +33,7 @@ export async function registerUserController(
       role,
     });
 
-    return reply.send(201).send(user);
+    return reply.status(201).send(user);
   } catch (err) {
     throw err;
   }

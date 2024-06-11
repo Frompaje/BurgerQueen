@@ -19,7 +19,7 @@ export async function deleteUserController(
       id,
     });
 
-    return reply.send(200).send({ user });
+    return reply.status(200).send({ user });
   } catch (err) {
     throw err;
   }

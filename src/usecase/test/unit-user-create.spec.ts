@@ -1,10 +1,10 @@
 import { compare, hash } from "bcryptjs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { InvalidCredentialsError } from "../../err/invalid-credentials-error";
 import { UserAlreadyExistsError } from "../../err/user-already-exists.error";
 import { UserRepository } from "../../interface/user-repository";
 import { Hash } from "../../repository/adapter/password-hash";
 import { RegisterUseCase } from "../user-create-usecase";
+import { repositoryAndHasherDependencies } from "./factory/make-repository-hasher-depedencies";
 import {
   makeUserMock,
   makeUserMockPasswordNoHashed,
@@ -16,18 +16,11 @@ describe("Create user", () => {
   let sut: RegisterUseCase;
 
   beforeEach(() => {
-    userRepository = {
-      create: vi.fn(),
-      delete: vi.fn(),
-      findByEmail: vi.fn(),
-      findById: vi.fn(),
-      findUserByIdAndEmail: vi.fn(),
-      update: vi.fn(),
-    };
-    hasher = {
-      compare: vi.fn(),
-      hash: vi.fn(),
-    };
+    const depedencies = repositoryAndHasherDependencies();
+
+    userRepository = depedencies.userRepository;
+    hasher = depedencies.hasher;
+
     sut = new RegisterUseCase(userRepository, hasher);
   });
 

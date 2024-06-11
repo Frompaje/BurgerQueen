@@ -53,4 +53,12 @@ export class PrismaUserRepository implements UserRepository {
       },
     });
   }
+  updateEmail(id: string, emailUpdate: string) {
+    return prisma.user.update({
+      where: {
+        id,
+      },
+      data: { email: emailUpdate },
+    });
+  }
 }

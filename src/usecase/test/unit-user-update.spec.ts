@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { UserDoesntExist } from "../../err/user-doesnt-exist";
 import { UserRepository } from "../../interface/user-repository";
 import { UpdateUseCase } from "../user-update-usecase";
+import { repositoryDependencies } from "./factory/make-repository-dependencies";
 import { makeUserMock } from "./factory/make-user";
 
 describe("Update user", () => {
@@ -9,14 +10,10 @@ describe("Update user", () => {
   let sut: UpdateUseCase;
 
   beforeEach(() => {
-    userRepository = {
-      create: vi.fn(),
-      delete: vi.fn(),
-      findByEmail: vi.fn(),
-      findById: vi.fn(),
-      findUserByIdAndEmail: vi.fn(),
-      update: vi.fn(),
-    };
+    const depedencies = repositoryDependencies();
+
+    userRepository = depedencies.userRepository;
+
     sut = new UpdateUseCase(userRepository);
   });
 

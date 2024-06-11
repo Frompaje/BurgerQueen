@@ -20,7 +20,7 @@ export class AuthenticateUseCase {
     if (!user) {
       throw new UserDoesntExist();
     }
-    const isSamePassword = await this.hasher.compare(user.password, password);
+    const isSamePassword = await this.hasher.compare(password, user.password);
 
     if (!isSamePassword) {
       throw new InvalidCredentialsError();

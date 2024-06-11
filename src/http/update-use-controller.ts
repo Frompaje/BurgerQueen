@@ -25,7 +25,7 @@ export async function updateUserController(
       address,
     });
 
-    return reply.send(202).send({ user });
+    return reply.status(202).send({ user });
   } catch (err) {
     throw err;
   }

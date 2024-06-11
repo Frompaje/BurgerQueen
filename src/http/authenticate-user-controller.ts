@@ -1,9 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 import { makeAuthenticateUseCase } from "./factory/make-authenticate-usecase";
-import { env } from "../env";
 
-export async function AuthenticateUserController(
+export async function authenticateUserController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
@@ -16,9 +15,9 @@ export async function AuthenticateUserController(
   const { id, email, password } = registerBodySchema.parse(request.body);
 
   try {
-    const register = makeAuthenticateUseCase();
+    const authenticate = makeAuthenticateUseCase();
 
-    const user = await register.execute({
+    const user = await authenticate.execute({
       id,
       email,
       password,
@@ -33,7 +32,7 @@ export async function AuthenticateUserController(
       }
     );
 
-    return reply.send(200).send({ user, tokenJWT });
+    return reply.status(200).send({ tokenJWT });
   } catch (err) {
     throw err;
   }

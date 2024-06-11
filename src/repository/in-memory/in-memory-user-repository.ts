@@ -92,4 +92,16 @@ export class InMemoryUserRepository implements UserRepository {
 
     return user;
   }
+
+  async updateEmail(id: string, email: string) {
+    const user = this.dataBase.find((u) => u.id === id);
+
+    if (!user) {
+      return null;
+    }
+
+    user.email = email ?? user.email;
+
+    return user;
+  }
 }

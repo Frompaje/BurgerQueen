@@ -7,4 +7,5 @@ export interface UserRepository {
   create(data: Prisma.UserCreateInput): Promise<User>;
   delete(id: string): Promise<User | null>;
   update(id: string, name?: string, address?: string): Promise<User | null>;
+  updateEmail(id: string, emailUpdate: string): Promise<User | null>;
 }
