@@ -1,7 +1,7 @@
 import { UserDoesntExist } from "../err/user-doesnt-exist";
 import { UserRepository } from "../interface/user-repository";
 
-interface UpdatedUseCaseRequest {
+interface UpdatedEmailUseCaseRequest {
   id: string;
   email: string;
   emailUpdate: string;
@@ -9,7 +9,7 @@ interface UpdatedUseCaseRequest {
 
 export class UpdateEmailUseCase {
   constructor(private readonly userRepository: UserRepository) {}
-  async execute({ id, email, emailUpdate }: UpdatedUseCaseRequest) {
+  async execute({ id, email, emailUpdate }: UpdatedEmailUseCaseRequest) {
     const isUserExist = await this.userRepository.findUserByIdAndEmail(
       id,
       email

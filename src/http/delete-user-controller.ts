@@ -6,16 +6,16 @@ export async function deleteUserController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const registerBodySchema = z.object({
+  const deleteUserBodySchema = z.object({
     id: z.string(),
   });
 
-  const { id } = registerBodySchema.parse(request.body);
+  const { id } = deleteUserBodySchema.parse(request.body);
 
   try {
-    const register = makeDeleteUseCase();
+    const deleteUsecase = makeDeleteUseCase();
 
-    const user = await register.execute({
+    const user = await deleteUsecase.execute({
       id,
     });
 

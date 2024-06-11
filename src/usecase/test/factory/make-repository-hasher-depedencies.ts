@@ -11,6 +11,7 @@ export function repositoryAndHasherDependencies() {
     findUserByIdAndEmail: vi.fn(),
     update: vi.fn(),
     updateEmail: vi.fn(),
+    updatePassword: vi.fn(),
   };
 
   const hasher: Hash = {

@@ -16,7 +16,7 @@ describe("Update user", () => {
     sut = new UpdateEmailUseCase(userRepository);
   });
 
-  it("Should update the user", async () => {
+  it("Should update email the user", async () => {
     const emailUpdate = "Another@gmail.com";
     const userMocking = makeUserMock({ email: emailUpdate });
 

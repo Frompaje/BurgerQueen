@@ -5,10 +5,7 @@ import { UserRepository } from "../../interface/user-repository";
 import { Hash } from "../../repository/adapter/password-hash";
 import { RegisterUseCase } from "../user-create-usecase";
 import { repositoryAndHasherDependencies } from "./factory/make-repository-hasher-depedencies";
-import {
-  makeUserMock,
-  makeUserMockPasswordNoHashed,
-} from "./factory/make-user";
+import { makeUserMock } from "./factory/make-user";
 
 describe("Create user", () => {
   let userRepository: UserRepository;
@@ -35,12 +32,16 @@ describe("Create user", () => {
   });
 
   it("Password should be hashed", async () => {
-    const userMockingNoHashed = makeUserMockPasswordNoHashed();
-    const password_hash = await hash(userMockingNoHashed.password, 6);
+    const passwordHashed = await hash("123456", 6);
+
+    const userMockingNoHashed = makeUserMock({
+      password: passwordHashed,
+    });
+
     vi.spyOn(userRepository, "create").mockResolvedValue(userMockingNoHashed);
 
     const { user } = await sut.execute(userMockingNoHashed);
-    const isPasswordCorrectHashed = await compare(user.password, password_hash);
+    const isPasswordCorrectHashed = await compare("123456", user.password);
 
     expect(isPasswordCorrectHashed).toEqual(true);
   });

@@ -7,11 +7,15 @@ export interface Hash {
 
 export class Hasher implements Hash {
   private SALT = 6;
+
   async hash(payload: string): Promise<string> {
-    return await hash(payload, this.SALT);
+    const hashed = await hash(payload, this.SALT);
+
+    return hashed;
   }
 
   async compare(data: string, payload: string): Promise<boolean> {
-    return await compare(data, payload);
+    const result = await compare(data, payload);
+    return result;
   }
 }

@@ -6,13 +6,15 @@ export async function authenticateUserController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const registerBodySchema = z.object({
+  const authenticateUserBodySchema = z.object({
     id: z.string(),
     email: z.string().email(),
     password: z.string().min(6),
   });
 
-  const { id, email, password } = registerBodySchema.parse(request.body);
+  const { id, email, password } = authenticateUserBodySchema.parse(
+    request.body
+  );
 
   try {
     const authenticate = makeAuthenticateUseCase();

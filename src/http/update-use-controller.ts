@@ -6,19 +6,19 @@ export async function updateUserController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const registerBodySchema = z.object({
+  const updateUserBodySchema = z.object({
     id: z.string(),
     email: z.string().email(),
     name: z.string().min(6).max(30).optional(),
     address: z.string().min(6).optional(),
   });
 
-  const { id, email, name, address } = registerBodySchema.parse(request.body);
+  const { id, email, name, address } = updateUserBodySchema.parse(request.body);
 
   try {
-    const update = makeUpdateUseCase();
+    const updateUsecase = makeUpdateUseCase();
 
-    const user = await update.execute({
+    const user = await updateUsecase.execute({
       id,
       email,
       name,

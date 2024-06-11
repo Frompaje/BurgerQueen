@@ -10,6 +10,7 @@ export function repositoryDependencies() {
     findUserByIdAndEmail: vi.fn(),
     update: vi.fn(),
     updateEmail: vi.fn(),
+    updatePassword: vi.fn(),
   };
 
   return {

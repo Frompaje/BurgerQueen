@@ -11,7 +11,7 @@ export async function registerUserController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const registerBodySchema = z.object({
+  const createUserBodySchema = z.object({
     name: z.string().min(6).max(30),
     email: z.string().email(),
     password: z.string().min(6),
@@ -19,7 +19,7 @@ export async function registerUserController(
     role: z.nativeEnum(Role).default(Role.USER),
   });
 
-  const { name, email, password, address, role } = registerBodySchema.parse(
+  const { name, email, password, address, role } = createUserBodySchema.parse(
     request.body
   );
   try {
