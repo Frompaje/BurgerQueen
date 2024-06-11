@@ -27,6 +27,7 @@ export class PrismaPriceRepository implements PriceRepository {
       },
     });
   }
+
   findById(id: string) {
     return prisma.product.findUnique({
       where: {

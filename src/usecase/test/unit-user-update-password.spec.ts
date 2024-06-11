@@ -1,22 +1,22 @@
+import { User } from "@prisma/client";
+import { hash } from "bcryptjs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { UserRepository } from "../../interface/user-repository";
-import { UpdateEmailUseCase } from "../user-update-email-usecase";
-import { repositoryDependencies } from "./factory/make-repository-dependencies";
-import { makeUserMock } from "./factory/make-user";
-import { hash } from "bcryptjs";
-import { UpdatePasswordUseCase } from "../user-update-password-usecase";
-import { User } from "@prisma/client";
+import { Hash } from "../../repository/adapter/password-hash";
+import { UpdatePasswordUseCase } from "../user/user-update-password-usecase";
+import { repositoryAndHasherDependencies } from "./factory/make-repository-hasher-depedencies";
 
 describe("Update password user", () => {
   let userRepository: UserRepository;
+  let hasher: Hash;
   let sut: UpdatePasswordUseCase;
 
   beforeEach(() => {
-    const depedencies = repositoryDependencies();
+    const depedencies = repositoryAndHasherDependencies();
 
     userRepository = depedencies.userRepository;
-
-    sut = new UpdatePasswordUseCase(userRepository);
+    hasher = depedencies.hasher;
+    sut = new UpdatePasswordUseCase(userRepository, hasher);
   });
 
   it("Should update password the user", async () => {

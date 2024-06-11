@@ -1,6 +1,6 @@
 import { Hasher } from "../../repository/adapter/password-hash";
 import { PrismaUserRepository } from "../../repository/prisma-user-repository";
-import { AuthenticateUseCase } from "../../usecase/user-authenticate-usecase";
+import { AuthenticateUseCase } from "../../usecase/user/user-authenticate-usecase";
 
 export function makeAuthenticateUseCase() {
   const userPrismaRepository = new PrismaUserRepository();

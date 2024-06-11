@@ -1,5 +1,5 @@
 import { PrismaUserRepository } from "../../repository/prisma-user-repository";
-import { UpdateEmailUseCase } from "../../usecase/user-update-email-usecase";
+import { UpdateEmailUseCase } from "../../usecase/user/user-update-email-usecase";
 
 export function makeUpdateEmailUseCase() {
   const userPrismaRepository = new PrismaUserRepository();

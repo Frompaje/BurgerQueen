@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { UserDoesntExist } from "../../err/user-doesnt-exist";
 import { UserRepository } from "../../interface/user-repository";
-import { DeleteUseCase } from "../user-delete-usecase";
 import { repositoryDependencies } from "./factory/make-repository-dependencies";
 import { makeUserMock } from "./factory/make-user";
+import { DeleteUseCase } from "../user/user-delete-usecase";
 
 describe("Delete user", () => {
   let userRepository: UserRepository;

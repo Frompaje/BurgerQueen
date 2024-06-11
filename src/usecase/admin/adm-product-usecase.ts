@@ -1,5 +1,5 @@
-import { InvalidCredentialsError } from "../err/invalid-credentials-error";
-import { UserRepository } from "../interface/user-repository";
+import { InvalidCredentialsError } from "../../err/invalid-credentials-error";
+import { UserRepository } from "../../interface/user-repository";
 
 export interface UseCaseRequest {
   id: string;
