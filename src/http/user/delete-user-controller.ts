@@ -1,6 +1,6 @@
 import z from "zod";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { makeDeleteUseCase } from "../factory/make-delete-usecase";
+import { makeDeleteUseCase } from "./factory/make-delete-usecase";
 
 export async function deleteUserController(
   request: FastifyRequest,

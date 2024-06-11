@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
-import { makeRegisterUseCase } from "../factory/make-register-usecase";
+import { makeRegisterUseCase } from "./factory/make-register-usecase";
 
 enum Role {
   ADMIN = "ADMIN",

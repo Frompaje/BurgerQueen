@@ -13,7 +13,6 @@ export class Hasher implements Hash {
 
     return hashed;
   }
-
   async compare(data: string, payload: string): Promise<boolean> {
     const result = await compare(data, payload);
     return result;

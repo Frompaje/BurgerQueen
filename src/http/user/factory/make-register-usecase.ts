@@ -1,6 +1,6 @@
-import { PrismaUserRepository } from "../../repository/prisma-user-repository";
-import { Hasher } from "../../repository/adapter/password-hash";
-import { RegisterUseCase } from "../../usecase/user/user-create-usecase";
+import { PrismaUserRepository } from "../../../repository/prisma-user-repository";
+import { Hasher } from "../../../repository/adapter/password-hash";
+import { RegisterUseCase } from "../../../usecase/user/user-create-usecase";
 
 export function makeRegisterUseCase() {
   const userPrismaRepository = new PrismaUserRepository();

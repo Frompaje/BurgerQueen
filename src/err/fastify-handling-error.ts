@@ -32,6 +32,7 @@ export function errorHandling(
       message: error.message,
     });
   }
+  console.log(error);
 
   return reply.status(500).send({ message: "internal server error" });
 }

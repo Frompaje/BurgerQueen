@@ -1,13 +1,13 @@
-import { Prisma } from "@prisma/client";
 import { prisma } from "../database/prisma";
-import { PriceRepository } from "../interface/product-repository";
+import { ProductRepository } from "../interface/product-repository";
 
-export class PrismaPriceRepository implements PriceRepository {
-  create(data: Prisma.ProductCreateInput) {
+export class PrismaPriceRepository implements ProductRepository {
+  create(name: string, description: string, price: string) {
     return prisma.product.create({
-      data,
+      data: { name, description, price },
     });
   }
+
   delete(id: string) {
     return prisma.product.delete({
       where: {
@@ -32,6 +32,13 @@ export class PrismaPriceRepository implements PriceRepository {
     return prisma.product.findUnique({
       where: {
         id,
+      },
+    });
+  }
+  findByName(name: string) {
+    return prisma.product.findUnique({
+      where: {
+        name,
       },
     });
   }

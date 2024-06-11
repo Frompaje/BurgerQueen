@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
-import { makeUpdateUseCase } from "../factory/make-update-usecase";
+import { makeUpdateUseCase } from "./factory/make-update-usecase";
 
 export async function updateUserController(
   request: FastifyRequest,

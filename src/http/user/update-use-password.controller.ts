@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
-import { makeUpdatePasswordUseCase } from "../factory/make-update-password-usecase";
+import { makeUpdatePasswordUseCase } from "./factory/make-update-password-usecase";
 
 export async function updatePasswordUserController(
   request: FastifyRequest,

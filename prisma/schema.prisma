@@ -20,24 +20,20 @@ model User {
 }
 
 model Admin {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid())
   name      String
-  email     String    @unique
+  email     String   @unique
   password  String
-  createdAt DateTime  @default(now()) @map("created_at")
-  role      Role      @default(ADMIN)
-  Product   Product[]
+  createdAt DateTime @default(now()) @map("created_at")
+  role      Role     @default(ADMIN)
 }
 
 model Product {
   id          String   @id @default(uuid())
   name        String
-  createdAt   DateTime
+  createdAt   DateTime @default(now())
   description String
   price       String
-
-  adminId String
-  admin   Admin  @relation(fields: [adminId], references: [id])
 }
 
 enum Role {
