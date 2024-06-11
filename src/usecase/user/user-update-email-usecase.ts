@@ -1,5 +1,5 @@
-import { UserDoesntExist } from "../err/user-doesnt-exist";
-import { UserRepository } from "../interface/user-repository";
+import { UserDoesntExist } from "../../err/user/user-doesnt-exist";
+import { UserRepository } from "../../interface/user-repository";
 
 interface UpdatedEmailUseCaseRequest {
   id: string;

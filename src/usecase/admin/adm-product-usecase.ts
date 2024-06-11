@@ -1,5 +1,4 @@
-import { InvalidCredentialsError } from "../../err/invalid-credentials-error";
-import { UserRepository } from "../../interface/user-repository";
+import { ProductRepository } from "../../interface/product-repository";
 
 export interface UseCaseRequest {
   id: string;
@@ -8,12 +7,11 @@ export interface UseCaseRequest {
 }
 
 export class ProductUseCase {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly productRepository: ProductRepository) {}
   async execute({ id }: UseCaseRequest) {
-    const userExist = await this.userRepository.findById(id);
+    const productExist = await this.productRepository.findById(id);
 
-    if (!userExist || userExist.role === "USER") {
-      throw new InvalidCredentialsError();
+    if (!productExist) {
     }
   }
 }

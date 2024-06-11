@@ -1,6 +1,6 @@
-import { UserDoesntExist } from "../err/user-doesnt-exist";
-import { UserRepository } from "../interface/user-repository";
-import { Hash } from "../repository/adapter/password-hash";
+import { UserDoesntExist } from "../../err/user/user-doesnt-exist";
+import { UserRepository } from "../../interface/user-repository";
+import { Hash } from "../../repository/adapter/password-hash";
 
 interface UpdatedUseCaseRequest {
   id: string;

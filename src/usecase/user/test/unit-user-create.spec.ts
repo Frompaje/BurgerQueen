@@ -1,11 +1,11 @@
 import { compare, hash } from "bcryptjs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { UserAlreadyExistsError } from "../../err/user-already-exists.error";
-import { UserRepository } from "../../interface/user-repository";
-import { Hash } from "../../repository/adapter/password-hash";
 import { repositoryAndHasherDependencies } from "./factory/make-repository-hasher-depedencies";
 import { makeUserMock } from "./factory/make-user";
-import { RegisterUseCase } from "../user/user-create-usecase";
+import { UserAlreadyExistsError } from "../../../err/user/user-already-exists.error";
+import { UserRepository } from "../../../interface/user-repository";
+import { Hash } from "../../../repository/adapter/password-hash";
+import { RegisterUseCase } from "../user-create-usecase";
 
 describe("Create user", () => {
   let userRepository: UserRepository;

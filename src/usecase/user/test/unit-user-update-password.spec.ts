@@ -1,10 +1,10 @@
 import { User } from "@prisma/client";
 import { hash } from "bcryptjs";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { UserRepository } from "../../interface/user-repository";
-import { Hash } from "../../repository/adapter/password-hash";
-import { UpdatePasswordUseCase } from "../user/user-update-password-usecase";
 import { repositoryAndHasherDependencies } from "./factory/make-repository-hasher-depedencies";
+import { UserRepository } from "../../../interface/user-repository";
+import { Hash } from "../../../repository/adapter/password-hash";
+import { UpdatePasswordUseCase } from "../user-update-password-usecase";
 
 describe("Update password user", () => {
   let userRepository: UserRepository;

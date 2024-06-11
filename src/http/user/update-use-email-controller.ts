@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
-import { makeUpdateEmailUseCase } from "./factory/make-update-email-usecase";
+import { makeUpdateEmailUseCase } from "../factory/make-update-email-usecase";
 
 export async function updateEmailUserController(
   request: FastifyRequest,

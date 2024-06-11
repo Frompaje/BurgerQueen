@@ -1,7 +1,7 @@
-import { InvalidCredentialsError } from "../err/invalid-credentials-error";
-import { UserDoesntExist } from "../err/user-doesnt-exist";
-import { UserRepository } from "../interface/user-repository";
-import { Hash } from "../repository/adapter/password-hash";
+import { InvalidCredentialsError } from "../../err/user/invalid-credentials-error";
+import { UserDoesntExist } from "../../err/user/user-doesnt-exist";
+import { UserRepository } from "../../interface/user-repository";
+import { Hash } from "../../repository/adapter/password-hash";
 
 interface AuthenticateUseCaseRequest {
   id: string;

@@ -1,7 +1,7 @@
 import { $Enums } from "@prisma/client";
-import { UserAlreadyExistsError } from "../err/user-already-exists.error";
-import { UserRepository } from "../interface/user-repository";
-import { Hash } from "../repository/adapter/password-hash";
+import { UserAlreadyExistsError } from "../../err/user/user-already-exists.error";
+import { UserRepository } from "../../interface/user-repository";
+import { Hash } from "../../repository/adapter/password-hash";
 
 export interface UseCaseRequest {
   name: string;

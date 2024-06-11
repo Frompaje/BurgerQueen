@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
-import { makeAuthenticateUseCase } from "./factory/make-authenticate-usecase";
+import { makeAuthenticateUseCase } from "../factory/make-authenticate-usecase";
 
 export async function authenticateUserController(
   request: FastifyRequest,

@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { InvalidCredentialsError } from "../../err/invalid-credentials-error";
-import { UserDoesntExist } from "../../err/user-doesnt-exist";
-import { UserRepository } from "../../interface/user-repository";
-import { Hash } from "../../repository/adapter/password-hash";
 import { makeUserMock } from "./factory/make-user";
 import { repositoryAndHasherDependencies } from "./factory/make-repository-hasher-depedencies";
-import { AuthenticateUseCase } from "../user/user-authenticate-usecase";
+import { InvalidCredentialsError } from "../../../err/user/invalid-credentials-error";
+import { UserDoesntExist } from "../../../err/user/user-doesnt-exist";
+import { UserRepository } from "../../../interface/user-repository";
+import { Hash } from "../../../repository/adapter/password-hash";
+import { AuthenticateUseCase } from "../user-authenticate-usecase";
 
 describe("Authenticate user", () => {
   let sut: AuthenticateUseCase;

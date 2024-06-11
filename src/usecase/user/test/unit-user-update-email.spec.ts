@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { UserRepository } from "../../interface/user-repository";
 import { repositoryDependencies } from "./factory/make-repository-dependencies";
 import { makeUserMock } from "./factory/make-user";
-import { UpdateEmailUseCase } from "../user/user-update-email-usecase";
+import { UserRepository } from "../../../interface/user-repository";
+import { UpdateEmailUseCase } from "../user-update-email-usecase";
 
 describe("Update user", () => {
   let userRepository: UserRepository;

@@ -1,8 +1,7 @@
 import { vi } from "vitest";
-import { UserRepository } from "../../../interface/user-repository";
-import { Hash } from "../../../repository/adapter/password-hash";
+import { UserRepository } from "../../../../interface/user-repository";
 
-export function repositoryAndHasherDependencies() {
+export function repositoryDependencies() {
   const userRepository: UserRepository = {
     create: vi.fn(),
     delete: vi.fn(),
@@ -14,13 +13,7 @@ export function repositoryAndHasherDependencies() {
     updatePassword: vi.fn(),
   };
 
-  const hasher: Hash = {
-    compare: vi.fn(),
-    hash: vi.fn(),
-  };
-
   return {
     userRepository,
-    hasher,
   };
 }

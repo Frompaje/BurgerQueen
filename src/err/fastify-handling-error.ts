@@ -1,9 +1,8 @@
 import { FastifyError, FastifyReply, FastifyRequest } from "fastify";
 import { ZodError } from "zod";
-import { InvalidCredentialsError } from "./invalid-credentials-error";
-import { UserAlreadyExistsError } from "./user-already-exists.error";
-import { UserDoesntExist } from "./user-doesnt-exist";
-import { request } from "http";
+import { InvalidCredentialsError } from "./user/invalid-credentials-error";
+import { UserAlreadyExistsError } from "./user/user-already-exists.error";
+import { UserDoesntExist } from "./user/user-doesnt-exist";
 
 export function errorHandling(
   error: FastifyError,

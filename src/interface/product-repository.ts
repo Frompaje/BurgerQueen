@@ -1,6 +1,6 @@
 import { Prisma, Product } from "@prisma/client";
 
-export interface PriceRepository {
+export interface ProductRepository {
   create(data: Prisma.ProductCreateInput): Promise<Product>;
   delete(id: string): Promise<Product | null>;
   update(

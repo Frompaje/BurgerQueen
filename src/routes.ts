@@ -1,11 +1,11 @@
 import { FastifyInstance } from "fastify";
-import { registerUserController } from "./http/create-user-controller";
-import { deleteUserController } from "./http/delete-user-controller";
-import { updateUserController } from "./http/update-use-controller";
-import { authenticateUserController } from "./http/authenticate-user-controller";
 import { verifyJWT } from "./middlewares/login-jwt";
-import { updateEmailUserController } from "./http/update-use-email-controller";
-import { updatePasswordUserController } from "./http/update-use-password.controller";
+import { registerUserController } from "./http/user/create-user-controller";
+import { deleteUserController } from "./http/user/delete-user-controller";
+import { updateUserController } from "./http/user/update-use-controller";
+import { authenticateUserController } from "./http/user/authenticate-user-controller";
+import { updateEmailUserController } from "./http/user/update-use-email-controller";
+import { updatePasswordUserController } from "./http/user/update-use-password.controller";
 
 export async function appRoutes(app: FastifyInstance) {
   app.post("/user", registerUserController);

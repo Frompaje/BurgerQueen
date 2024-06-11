@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { UserDoesntExist } from "../../err/user-doesnt-exist";
-import { Hasher } from "../../repository/adapter/password-hash";
-import { InMemoryUserRepository } from "../../repository/in-memory/in-memory-user-repository";
+import { UserDoesntExist } from "../../../err/user/user-doesnt-exist";
+import { Hasher } from "../../../repository/adapter/password-hash";
+import { InMemoryUserRepository } from "../../../repository/in-memory/in-memory-user-repository";
 import { RegisterUseCase } from "../user-create-usecase";
 import { DeleteUseCase } from "../user-delete-usecase";
 
