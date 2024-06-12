@@ -7,25 +7,42 @@ import { authenticateUserController } from "./http/user/authenticate-user-contro
 import { updateEmailUserController } from "./http/user/update-use-email-controller";
 import { updatePasswordUserController } from "./http/user/update-use-password.controller";
 import { registerProductController } from "./http/product/create-product-controller";
+import { deleteProductController } from "./http/product/delete-product-controller";
+import { authenticateAdminJWT } from "./middlewares/admin-jwt";
 
 export async function appRoutes(app: FastifyInstance) {
   app.post("/user", registerUserController);
-  app.delete("/user", deleteUserController);
-  app.patch("/user", updateUserController);
   app.post("/login", authenticateUserController);
 
   // Authenticate
+  app.delete("/user", { onRequest: [verifyJWT] }, deleteUserController);
+
+  app.patch("/user", { onRequest: [verifyJWT] }, updateUserController);
+
   app.patch("/user/update", { onRequest: [verifyJWT] }, updateUserController);
+
   app.patch(
     "/user/email",
     { onRequest: [verifyJWT] },
     updateEmailUserController
   );
+
   app.patch(
     "/user/password",
     { onRequest: [verifyJWT] },
     updatePasswordUserController
   );
 
-  app.post("/product", registerProductController);
+  // Product
+  app.post(
+    "/product",
+    { onRequest: [authenticateAdminJWT] },
+    registerProductController
+  );
+
+  app.delete(
+    "/product",
+    { onRequest: [authenticateAdminJWT] },
+    deleteProductController
+  );
 }

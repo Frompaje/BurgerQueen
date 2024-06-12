@@ -33,7 +33,7 @@ model Product {
   name        String
   createdAt   DateTime @default(now())
   description String
-  price       String
+  price       Int
 }
 
 enum Role {

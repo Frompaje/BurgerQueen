@@ -2,9 +2,9 @@ import { prisma } from "../database/prisma";
 import { ProductRepository } from "../interface/product-repository";
 
 export class PrismaPriceRepository implements ProductRepository {
-  create(name: string, description: string, price: string) {
+  create(name: string, description: string, price: number) {
     return prisma.product.create({
-      data: { name, description, price },
+      data: { name: name, description: description, price: price },
     });
   }
 
@@ -15,15 +15,15 @@ export class PrismaPriceRepository implements ProductRepository {
       },
     });
   }
-  update(id: string, name?: string, description?: string, price?: string) {
+  update(id: string, name?: string, description?: string, price?: number) {
     return prisma.product.update({
       where: {
         id,
       },
       data: {
         name,
-        price,
         description,
+        price,
       },
     });
   }
@@ -36,7 +36,7 @@ export class PrismaPriceRepository implements ProductRepository {
     });
   }
   findByName(name: string) {
-    return prisma.product.findUnique({
+    return prisma.product.findFirst({
       where: {
         name,
       },
