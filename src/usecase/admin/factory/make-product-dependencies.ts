@@ -8,6 +8,7 @@ export function repositoryDependencies() {
     findById: vi.fn(),
     update: vi.fn(),
     findByName: vi.fn(),
+    findByIdAndName: vi.fn(),
   };
 
   return {

@@ -16,7 +16,7 @@ describe("Product delete user", () => {
     sut = new ProductDeleteUseCase(productRepository);
   });
 
-  it("Shoulde be create product", async () => {
+  it("Shoulde be delete product", async () => {
     const productMock = makeProductMock();
 
     vi.spyOn(productRepository, "findById").mockResolvedValue(productMock);

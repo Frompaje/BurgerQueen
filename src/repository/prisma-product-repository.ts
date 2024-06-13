@@ -15,6 +15,7 @@ export class PrismaPriceRepository implements ProductRepository {
       },
     });
   }
+
   update(id: string, name?: string, description?: string, price?: number) {
     return prisma.product.update({
       where: {
@@ -35,9 +36,19 @@ export class PrismaPriceRepository implements ProductRepository {
       },
     });
   }
+
   findByName(name: string) {
     return prisma.product.findFirst({
       where: {
+        name,
+      },
+    });
+  }
+
+  findByIdAndName(id: string, name: string) {
+    return prisma.product.findFirst({
+      where: {
+        id,
         name,
       },
     });

@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  email     String   @unique
+  email     String    @unique
   password  String
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime  @default(now()) @map("created_at")
   address   String
-  role      Role     @default(USER)
+  role      Role      @default(USER)
+  Request   Request[]
 
   @@map("Users")
 }
@@ -29,11 +30,21 @@ model Admin {
 }
 
 model Product {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
   description String
   price       Int
+  Request     Request[]
+}
+
+model Request {
+  id String @id @default(uuid())
+
+  products  Product @relation(fields: [productId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+  productId String
+  userId    String
 }
 
 enum Role {

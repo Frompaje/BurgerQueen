@@ -6,9 +6,10 @@ import { updateUserController } from "./http/user/update-use-controller";
 import { authenticateUserController } from "./http/user/authenticate-user-controller";
 import { updateEmailUserController } from "./http/user/update-use-email-controller";
 import { updatePasswordUserController } from "./http/user/update-use-password.controller";
-import { registerProductController } from "./http/product/create-product-controller";
-import { deleteProductController } from "./http/product/delete-product-controller";
+import { registerProductController } from "./http/product/product-create-controller";
+import { deleteProductController } from "./http/product/product-delete-controller";
 import { authenticateAdminJWT } from "./middlewares/admin-jwt";
+import { updateProductController } from "./http/product/product-update-controller";
 
 export async function appRoutes(app: FastifyInstance) {
   app.post("/user", registerUserController);
@@ -44,5 +45,11 @@ export async function appRoutes(app: FastifyInstance) {
     "/product",
     { onRequest: [authenticateAdminJWT] },
     deleteProductController
+  );
+
+  app.patch(
+    "/product",
+    { onRequest: [authenticateAdminJWT] },
+    updateProductController
   );
 }
