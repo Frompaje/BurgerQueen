@@ -1,7 +1,7 @@
 import { vi } from "vitest";
 import { ProductRepository } from "../../../interface/product-repository";
 
-export function repositoryDependencies() {
+export function productRepositoryDependencies() {
   const productRepository: ProductRepository = {
     create: vi.fn(),
     delete: vi.fn(),

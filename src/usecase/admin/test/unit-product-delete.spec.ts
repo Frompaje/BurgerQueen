@@ -16,11 +16,13 @@ describe("Product delete user", () => {
     sut = new ProductDeleteUseCase(productRepository);
   });
 
-  it("Shoulde be delete product", async () => {
+  it("Should be delete product", async () => {
     const productMock = makeProductMock();
 
     vi.spyOn(productRepository, "findById").mockResolvedValue(productMock);
+
     vi.spyOn(productRepository, "delete").mockResolvedValue(productMock);
+
     const product = await sut.execute(productMock);
 
     expect(productRepository.delete).toBeCalledTimes(1);

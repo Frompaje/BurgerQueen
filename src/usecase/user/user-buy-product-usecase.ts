@@ -26,9 +26,6 @@ export class BuyProductUseCase {
       throw new ProductDoesntExist();
     }
 
-    const productCart = [];
-    productCart.push(product);
-
     return user;
   }
 }

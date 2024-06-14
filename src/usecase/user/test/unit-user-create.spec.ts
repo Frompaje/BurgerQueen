@@ -11,7 +11,6 @@ describe("Create user", () => {
   let userRepository: UserRepository;
   let hasher: Hash;
   let sut: RegisterUseCase;
-
   beforeEach(() => {
     const depedencies = repositoryAndHasherDependencies();
 

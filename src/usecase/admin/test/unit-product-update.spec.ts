@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ProductRepository } from "../../../interface/product-repository";
-import { repositoryDependencies } from "../factory/make-product-dependencies";
+import { productRepositoryDependencies } from "../factory/make-product-dependencies";
 import { ProductUpdateUseCase } from "../product-update-usecase";
 import { makeProductMock } from "../factory/make-product";
 import { ProductDoesntExist } from "../../../err/product/product-doesnt-exist";
@@ -10,7 +10,7 @@ describe("Product user", () => {
   let sut: ProductUpdateUseCase;
 
   beforeEach(() => {
-    const depedencies = repositoryDependencies();
+    const depedencies = productRepositoryDependencies();
     productRepository = depedencies.productRepository;
 
     sut = new ProductUpdateUseCase(productRepository);

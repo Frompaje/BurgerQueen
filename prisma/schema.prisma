@@ -8,14 +8,15 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid())
   name      String
-  email     String    @unique
+  email     String   @unique
   password  String
-  createdAt DateTime  @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   address   String
-  role      Role      @default(USER)
-  Request   Request[]
+
+  role   Role    @default(USER)
+  Orders Order[]
 
   @@map("Users")
 }
@@ -26,25 +27,32 @@ model Admin {
   email     String   @unique
   password  String
   createdAt DateTime @default(now()) @map("created_at")
-  role      Role     @default(ADMIN)
+
+  role Role @default(ADMIN)
 }
 
 model Product {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
-  createdAt   DateTime  @default(now())
+  createdAt   DateTime @default(now())
   description String
   price       Int
-  Request     Request[]
+  Order       Order[]
+
+  @@map("Products")
 }
 
-model Request {
-  id String @id @default(uuid())
+model Order {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
 
-  products  Product @relation(fields: [productId], references: [id])
-  user      User    @relation(fields: [userId], references: [id])
+  user    User?   @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  userId    String?
   productId String
-  userId    String
+
+  @@map("Orders")
 }
 
 enum Role {
