@@ -5,7 +5,7 @@ import { deleteUserController } from "./http/user/delete-user-controller";
 import { updateUserController } from "./http/user/update-use-controller";
 import { authenticateUserController } from "./http/user/authenticate-user-controller";
 import { updateEmailUserController } from "./http/user/update-use-email-controller";
-import { updatePasswordUserController } from "./http/user/update-use-password.controller";
+import { updatePasswordUserController } from "./http/user/update-use-password-controller";
 import { registerProductController } from "./http/product/product-create-controller";
 import { deleteProductController } from "./http/product/product-delete-controller";
 import { authenticateAdminJWT } from "./middlewares/admin-jwt";

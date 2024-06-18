@@ -7,7 +7,7 @@ import { UserRepository } from "../../../interface/user-repository";
 import { Hash } from "../../../repository/adapter/password-hash";
 import { AuthenticateUseCase } from "../user-authenticate-usecase";
 
-describe("Authenticate user", () => {
+describe("Authenticate user Use Case", () => {
   let sut: AuthenticateUseCase;
   let userRepository: UserRepository;
   let hasher: Hash;
@@ -19,30 +19,31 @@ describe("Authenticate user", () => {
 
     sut = new AuthenticateUseCase(userRepository, hasher);
   });
+  describe("Sucess", () => {
+    it("Should generate a jwt token", async () => {
+      const userMocking = makeUserMock();
 
-  it("Should generate a jwt token", async () => {
-    const userMocking = makeUserMock();
+      vi.spyOn(userRepository, "findUserByIdAndEmail").mockResolvedValue(
+        userMocking
+      );
+      vi.spyOn(hasher, "compare").mockResolvedValue(true);
 
-    vi.spyOn(userRepository, "findUserByIdAndEmail").mockResolvedValue(
-      userMocking
-    );
-    vi.spyOn(hasher, "compare").mockResolvedValue(true);
+      const token = await sut.execute({
+        id: userMocking.id,
+        email: userMocking.email,
+        password: userMocking.password,
+      });
 
-    const token = await sut.execute({
-      id: userMocking.id,
-      email: userMocking.email,
-      password: userMocking.password,
+      expect(userRepository.findUserByIdAndEmail).toBeCalledTimes(1);
+      expect(hasher.compare).toBeCalledTimes(1);
+      expect(userRepository.findUserByIdAndEmail).toBeCalledWith(
+        userMocking.id,
+        userMocking.email
+      );
+      expect(token).toBeDefined();
     });
-
-    expect(userRepository.findUserByIdAndEmail).toBeCalledTimes(1);
-    expect(hasher.compare).toBeCalledTimes(1);
-    expect(userRepository.findUserByIdAndEmail).toBeCalledWith(
-      userMocking.id,
-      userMocking.email
-    );
-    expect(token).toBeDefined();
   });
-  describe("Erro authenticate", () => {
+  describe("Error", () => {
     it("Shouldn't authenticate, because the user doesn't exist", () => {
       const userMocking = makeUserMock();
       vi.spyOn(userRepository, "findUserByIdAndEmail").mockResolvedValue(null);

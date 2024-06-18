@@ -4,7 +4,7 @@ import { makeUserMock } from "./factory/make-user";
 import { UserRepository } from "../../../interface/user-repository";
 import { UpdateEmailUseCase } from "../user-update-email-usecase";
 
-describe("Update user", () => {
+describe("Update User Use Case", () => {
   let userRepository: UserRepository;
   let sut: UpdateEmailUseCase;
 
@@ -15,23 +15,24 @@ describe("Update user", () => {
 
     sut = new UpdateEmailUseCase(userRepository);
   });
+  describe("Sucess", () => {
+    it("Should update email the user", async () => {
+      const emailUpdate = "Another@gmail.com";
+      const userMocking = makeUserMock({ email: emailUpdate });
 
-  it("Should update email the user", async () => {
-    const emailUpdate = "Another@gmail.com";
-    const userMocking = makeUserMock({ email: emailUpdate });
+      vi.spyOn(userRepository, "findUserByIdAndEmail").mockResolvedValue(
+        userMocking
+      );
+      vi.spyOn(userRepository, "updateEmail").mockResolvedValue(userMocking);
 
-    vi.spyOn(userRepository, "findUserByIdAndEmail").mockResolvedValue(
-      userMocking
-    );
-    vi.spyOn(userRepository, "updateEmail").mockResolvedValue(userMocking);
+      const resultUpdateEmail = await sut.execute({
+        id: userMocking.id,
+        email: userMocking.email,
+        emailUpdate: emailUpdate,
+      });
 
-    const resultUpdateEmail = await sut.execute({
-      id: userMocking.id,
-      email: userMocking.email,
-      emailUpdate: emailUpdate,
+      expect(userRepository.findUserByIdAndEmail).toBeCalledTimes(1);
+      expect(resultUpdateEmail?.email).toEqual(emailUpdate);
     });
-
-    expect(userRepository.findUserByIdAndEmail).toBeCalledTimes(1);
-    expect(resultUpdateEmail?.email).toEqual(emailUpdate);
   });
 });

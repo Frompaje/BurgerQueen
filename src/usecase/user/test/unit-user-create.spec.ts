@@ -7,7 +7,7 @@ import { UserRepository } from "../../../interface/user-repository";
 import { Hash } from "../../../repository/adapter/password-hash";
 import { RegisterUseCase } from "../user-create-usecase";
 
-describe("Create user", () => {
+describe("Create User Use Case", () => {
   let userRepository: UserRepository;
   let hasher: Hash;
   let sut: RegisterUseCase;
@@ -20,32 +20,34 @@ describe("Create user", () => {
     sut = new RegisterUseCase(userRepository, hasher);
   });
 
-  it("Should create the user", async () => {
-    const userMocking = makeUserMock();
-    vi.spyOn(userRepository, "create").mockResolvedValue(userMocking);
+  describe("Sucess", () => {
+    it("Should create the user", async () => {
+      const userMocking = makeUserMock();
+      vi.spyOn(userRepository, "create").mockResolvedValue(userMocking);
 
-    const { user } = await sut.execute(userMocking);
+      const { user } = await sut.execute(userMocking);
 
-    expect(userRepository.create).toBeCalledTimes(1);
-    expect(user.id).toEqual(expect.any(String));
-  });
-
-  it("Password should be hashed", async () => {
-    const passwordHashed = await hash("123456", 6);
-
-    const userMockingNoHashed = makeUserMock({
-      password: passwordHashed,
+      expect(userRepository.create).toBeCalledTimes(1);
+      expect(user.id).toEqual(expect.any(String));
     });
 
-    vi.spyOn(userRepository, "create").mockResolvedValue(userMockingNoHashed);
+    it("Password should be hashed", async () => {
+      const passwordHashed = await hash("123456", 6);
 
-    const { user } = await sut.execute(userMockingNoHashed);
-    const isPasswordCorrectHashed = await compare("123456", user.password);
+      const userMockingNoHashed = makeUserMock({
+        password: passwordHashed,
+      });
 
-    expect(isPasswordCorrectHashed).toEqual(true);
+      vi.spyOn(userRepository, "create").mockResolvedValue(userMockingNoHashed);
+
+      const { user } = await sut.execute(userMockingNoHashed);
+      const isPasswordCorrectHashed = await compare("123456", user.password);
+
+      expect(isPasswordCorrectHashed).toEqual(true);
+    });
   });
 
-  describe("Error create user", () => {
+  describe("Error", () => {
     it("Shouldn't create the user with same email", async () => {
       const userMocking = makeUserMock();
       vi.spyOn(userRepository, "findByEmail").mockResolvedValue(userMocking);

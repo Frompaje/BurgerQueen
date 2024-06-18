@@ -4,7 +4,7 @@ import { ProductRepository } from "../interface/product-repository";
 export class PrismaProductRepository implements ProductRepository {
   create(name: string, description: string, price: number) {
     return prisma.product.create({
-      data: { name: name, description: description, price: price },
+      data: { name, description, price },
     });
   }
 

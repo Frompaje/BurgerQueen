@@ -15,34 +15,33 @@ describe("Product user", () => {
 
     sut = new ProductUpdateUseCase(productRepository);
   });
+  describe("Sucess", () => {
+    it("Should be update product", async () => {
+      const productMock = {
+        id: "id-Product",
+        name: "XQuase Tudo",
+        createdAt: new Date(),
+        description: "É um x que vem quase tudo ",
+        price: 3200,
+      };
 
-  it("Shoulde be update product", async () => {
-    const productMock = {
-      id: "id-Product",
-      name: "XQuase Tudo",
-      createdAt: new Date(),
-      description: "É um x que vem quase tudo ",
-      price: 3200,
-    };
+      const productUpdate = {
+        id: "id-Product",
+        name: "XBanana",
+        createdAt: new Date(),
+        description: "Xsalada com banana dentro",
+        price: 3200,
+      };
+      vi.spyOn(productRepository, "findById").mockResolvedValue(productMock);
+      vi.spyOn(productRepository, "update").mockResolvedValue(productUpdate);
 
-    const productUpdate = {
-      id: "id-Product",
-      name: "XBanana",
-      createdAt: new Date(),
-      description: "Xsalada com banana dentro",
-      price: 3200,
-    };
+      const product = await sut.execute(productMock);
 
-    vi.spyOn(productRepository, "findById").mockResolvedValue(productMock);
-    vi.spyOn(productRepository, "update").mockResolvedValue(productUpdate);
-
-    const product = await sut.execute(productMock);
-
-    expect(productRepository.update).toBeCalledTimes(1);
-    expect(product!.id).toEqual(productMock.id);
+      expect(productRepository.update).toBeCalledTimes(1);
+      expect(product!.id).toEqual(productMock.id);
+    });
   });
-
-  describe("Update Err", () => {
+  describe("Error", () => {
     it("Shouldn't update the product because it doesn't exist", async () => {
       const productMock = makeProductMock();
 
