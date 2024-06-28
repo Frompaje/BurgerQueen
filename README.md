@@ -21,6 +21,7 @@ Após clonar o projeto, acesse a pasta raiz do projeto e inicie o banco de dados
 ```docker-compose
 npm docker-compose up 
 ```
+
 Assim que o banco de dados estiver funcionando, você deve configurar as variáveis de ambiente
 apontando `PORT`, `POSTGRESQL_USERNAME` , `POSTGRESQL_PASSWORD` , `POSTGRESQL_DATABASE` e `JWT_SECRET` para o seu ambiente local.
 
@@ -31,6 +32,17 @@ POSTGRESQL_PASSWORD=password
 POSTGRESQL_DATABASE=docker
 JWT_SECRET= JWTSECRETHASHED
 ```
+
+Com o banco de dados configurado, instale as dependências do projeto:
+```
+npm install
+```
+
+Rode as migrations para criar as tabelas no banco de dados:
+```
+npm run migrate
+```
+
 Não se esqueça de gerar as tipagens do banco com o prisma:
 ```
 npx prisma generate
