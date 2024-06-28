@@ -1,4 +1,3 @@
-# backend_BurgerQueen
 # Backend Do BurgerQueen
 
 ## Índice
